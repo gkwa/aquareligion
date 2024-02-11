@@ -1,0 +1,17 @@
+* aquareligion
+** summary
+
+Given some youtube video id, fetch transcript and write to html where
+each sentence has a link back to youtube video at timestamp.
+
+** motivation
+
+Study remix from @academind's awesome remix crash course.
+
+** usage example
+
+#+begin_example
+pip install -r requirements.txt
+python transcript_to_html.py --video-id=RBYJTop1e-g
+open RBYJTop1e-g_transcript.html
+#+end_example

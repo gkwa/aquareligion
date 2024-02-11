@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transcript</title>
+
+    <script>
+        function openVideoAtTimestamp(timestamp) {
+            var url = "https://www.youtube.com/watch?v={{ video_id }}&t=" + timestamp + "s";
+            window.open(url, '_blank');
+        }
+    </script>
+
+    <style>
+        .link a {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>            
+
+</head>
+<body>
+    <div>
+        {% for sentence in sentences %}
+            <div class="sentence">
+                <span class="link">
+                    <a onclick="openVideoAtTimestamp({{ sentence.obj.timestamp }})">{{ sentence.obj.first_word }}</a>
+                </span>
+                <span class="text">
+                    {{ sentence.obj.remaining_text }}
+                </span>
+            </div>
+        {%- endfor %}
+    </div>
+</body>
+</html>
