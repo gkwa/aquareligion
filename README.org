@@ -1,7 +1,0 @@
-* aquareligion
-
-This is a description of my aquareligion.
-
-** Usage
-
-To use my project, run this command: ./aquareligion --verbose
