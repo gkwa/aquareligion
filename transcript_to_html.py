@@ -2,11 +2,23 @@ import argparse
 import dataclasses
 import json
 import pathlib
+import re
 import textwrap
 import typing
 
 import jinja2
 import youtube_transcript_api
+
+
+def extract_video_id(url):
+    try:
+        video_id = re.search(r"(?<=youtu\.be\/)[\w-]+|(?<=watch\?v=)[\w-]+", url.lower())
+        if video_id:
+            return video_id.group(0)
+        else:
+            return "Video ID not found in URL"
+    except Exception as e:
+        return f"An error occurred: {e}"
 
 
 @dataclasses.dataclass
@@ -87,12 +99,11 @@ def fetch_youtube_transcript(video_id, json_output_file):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert json ytb transcript into html"
+        description="Convert json youtube transcript into html"
     )
     parser.add_argument(
-        "--video-id",
-        default="RBYJTop1e-g",
-        help="The video ID of the YouTube video",
+        "url",
+        help="url of the youtube video",
     )
     parser.add_argument(
         "--output",
@@ -101,12 +112,13 @@ def main():
     )
 
     args = parser.parse_args()
+    video_id = extract_video_id(args.url)
 
-    transcript_json_path = f"{args.video_id}_transcript.json"
+    transcript_json_path = f"{video_id}_transcript.json"
     transcript_html_output_path = (
-        args.output if args.output else f"{args.video_id}_transcript.html"
+        args.output if args.output else f"{video_id}_transcript.html"
     )
-    data = fetch_youtube_transcript(args.video_id, transcript_json_path)
+    data = fetch_youtube_transcript(video_id, transcript_json_path)
 
     with open(transcript_json_path, "r", encoding="utf-8") as json_file:
         data = json.load(json_file)

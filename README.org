@@ -12,6 +12,6 @@ Study remix from @academind's awesome remix crash course.
 
 #+begin_example
 pip install -r requirements.txt
-python transcript_to_html.py --video-id=RBYJTop1e-g
+python transcript_to_html.py 'https://www.youtube.com/watch?v=RBYJTop1e-g'
 open RBYJTop1e-g_transcript.html
 #+end_example
